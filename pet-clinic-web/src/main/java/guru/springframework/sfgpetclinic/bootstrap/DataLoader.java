@@ -18,12 +18,6 @@ public class DataLoader implements CommandLineRunner {
         this.vetService = vetService;
     }
 
-    /*public DataLoader() {
-        this.ownerService = new OwnerServiceMapImpl();
-        this.vetService = new VetServiceMapImpl();
-    }*/
-
-
     @Override
     public void run(String... args) throws Exception {
         final Owner owner1 = new Owner();
@@ -50,7 +44,7 @@ public class DataLoader implements CommandLineRunner {
         this.vetService.save(vet1);
 
         final Vet vet2 = new Vet();
-        vet2.setId(1L);
+        vet2.setId(2L);
         vet2.setFirstName("Virat");
         vet2.setLastName("Kohli");
 
