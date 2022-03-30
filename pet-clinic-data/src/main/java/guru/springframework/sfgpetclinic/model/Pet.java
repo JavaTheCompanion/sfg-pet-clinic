@@ -9,8 +9,9 @@ import java.time.LocalDate;
 @Setter
 public class Pet extends BaseEntity {
 
+    private String name;
+    private LocalDate birthDate;
     private PetType petType;
     private Owner owner;
-    private LocalDate birtDate;
 
 }
