@@ -35,64 +35,64 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadData() {
-        final PetType dog = new PetType();
-        dog.setName("Dog");
+        final PetType dog = PetType.builder()
+                .name("Dog").build();
         final PetType savedDogPetType = this.petTypeService.save(dog);
 
-        final PetType cat = new PetType();
-        cat.setName("Cat");
+        final PetType cat = PetType.builder()
+                .name("Cat").build();
         final PetType savedCatPetType = this.petTypeService.save(cat);
 
-        final Speciality radiology = new Speciality();
-        radiology.setDescription("Radiology");
+        final Speciality radiology = Speciality.builder()
+                .description("Radiology").build();
         Speciality savedRadiology = this.specialityService.save(radiology);
 
-        final Speciality surgery = new Speciality();
-        surgery.setDescription("Surgery");
+        final Speciality surgery = Speciality.builder()
+                .description("Surgery").build();
         Speciality savedSurgery = this.specialityService.save(surgery);
 
-        final Speciality dentistry = new Speciality();
-        dentistry.setDescription("dentistry");
+        final Speciality dentistry = Speciality.builder()
+                .description("dentistry").build();
         Speciality savedDentistry = this.specialityService.save(dentistry);
 
-        final Owner owner1 = new Owner();
-        owner1.setFirstName("Michael");
-        owner1.setLastName("Weston");
-        owner1.setAddress("123 Brickerel");
-        owner1.setCity("Miami");
-        owner1.setTelephone("1231231234");
+        final Owner owner1 = Owner.builder()
+                .firstName("Michael")
+                .lastName("Weston")
+                .address("123 Brickerel")
+                .city("Miami")
+                .telephone("1231231234").build();
 
-        final Pet mikesPet = new Pet();
-        mikesPet.setName("Rosco");
-        mikesPet.setBirthDate(LocalDate.now());
-        mikesPet.setPetType(savedDogPetType);
-        mikesPet.setOwner(owner1);
+        final Pet mikesPet = Pet.builder()
+                .name("Rosco")
+                .birthDate(LocalDate.now())
+                .petType(savedDogPetType)
+                .owner(owner1).build();
 
         owner1.getPets().add(mikesPet);
 
         this.ownerService.save(owner1);
 
-        final Owner owner2 = new Owner();
-        owner2.setFirstName("Fiona");
-        owner2.setLastName("Glenanne");
-        owner2.setAddress("123 Brickerel");
-        owner2.setCity("Miami");
-        owner2.setTelephone("1231231234");
+        final Owner owner2 = Owner.builder()
+                .firstName("Fiona")
+                .lastName("Glenanne")
+                .address("123 Brickerel")
+                .city("Miami")
+                .telephone("1231231234").build();
 
-        final Pet fionasCat = new Pet();
-        fionasCat.setName("Just Cat");
-        fionasCat.setBirthDate(LocalDate.now());
-        fionasCat.setPetType(savedCatPetType);
-        fionasCat.setOwner(owner2);
+        final Pet fionasCat = Pet.builder()
+                .name("Just Cat")
+                .birthDate(LocalDate.now())
+                .petType(savedCatPetType)
+                .owner(owner2).build();
 
         owner2.getPets().add(fionasCat);
 
         this.ownerService.save(owner2);
 
-        final Visit catVisit = new Visit();
-        catVisit.setPet(fionasCat);
-        catVisit.setDate(LocalDate.now());
-        catVisit.setDescription("Sneezy Kitty");
+        final Visit catVisit = Visit.builder()
+                .pet(fionasCat)
+                .date(LocalDate.now())
+                .description("Sneezy Kitty").build();
 
         this.visitService.save(catVisit);
 
