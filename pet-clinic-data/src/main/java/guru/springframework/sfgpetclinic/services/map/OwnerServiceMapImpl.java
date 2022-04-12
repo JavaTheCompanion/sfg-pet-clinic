@@ -57,7 +57,7 @@ public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> impleme
                         throw new RemoteTimeoutException("PetType is required");
                     }
 
-                    if(pet.getId() == null) {
+                    if (pet.getId() == null) {
                         final Pet savedPet = this.petService.save(pet);
                         pet.setId(savedPet.getId());
 
@@ -72,6 +72,6 @@ public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> impleme
 
     @Override
     public Owner findByLastName(String lastName) {
-        return null;
+        return this.findAll().stream().filter(owner -> owner.getLastName().equalsIgnoreCase(lastName)).findFirst().orElse(null);
     }
 }
