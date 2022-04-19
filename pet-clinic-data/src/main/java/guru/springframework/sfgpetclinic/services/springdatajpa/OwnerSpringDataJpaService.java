@@ -6,7 +6,10 @@ import guru.springframework.sfgpetclinic.repositories.PetRepository;
 import guru.springframework.sfgpetclinic.repositories.PetTypeRepository;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -56,4 +59,11 @@ public class OwnerSpringDataJpaService implements OwnerService {
     public Owner findByLastName(String lastName) {
         return this.ownerRepository.findByLastName(lastName);
     }
+
+    @Override
+    @Transactional
+    public Page<Owner> findByLastNameLike(String lastName, Pageable pageable) {
+        return this.ownerRepository.findByLastNameLike("%" + lastName + "%", pageable);
+    }
+
 }
