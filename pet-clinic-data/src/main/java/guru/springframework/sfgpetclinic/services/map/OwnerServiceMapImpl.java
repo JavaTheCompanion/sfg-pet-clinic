@@ -6,6 +6,8 @@ import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetService;
 import guru.springframework.sfgpetclinic.services.PetTypeService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.remoting.RemoteTimeoutException;
 import org.springframework.stereotype.Service;
 
@@ -73,5 +75,10 @@ public class OwnerServiceMapImpl extends AbstractMapService<Owner, Long> impleme
     @Override
     public Owner findByLastName(String lastName) {
         return this.findAll().stream().filter(owner -> owner.getLastName().equalsIgnoreCase(lastName)).findFirst().orElse(null);
+    }
+
+    @Override
+    public Page<Owner> findByLastNameLike(String lastName, Pageable pageable) {
+        return null;
     }
 }

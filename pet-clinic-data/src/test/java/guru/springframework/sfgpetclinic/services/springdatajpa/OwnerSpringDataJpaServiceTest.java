@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -59,7 +60,7 @@ class OwnerSpringDataJpaServiceTest {
         returnOwnersSet.add(Owner.builder().id(1L).build());
         returnOwnersSet.add(Owner.builder().id(2L).build());
 
-        when(this.ownerRepository.findAll()).thenReturn(returnOwnersSet);
+        when(this.ownerRepository.findAll()).thenReturn(new ArrayList<>(returnOwnersSet));
 
         final Set<Owner> owners = this.ownerService.findAll();
 

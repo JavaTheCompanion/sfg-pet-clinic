@@ -46,34 +46,6 @@ class OwnerControllerTest {
     }
 
     @Test
-    void listOwners() {
-        // given
-        final Set<Owner> owners = new HashSet<>();
-        final Owner owner1 = new Owner();
-        owner1.setId(1L);
-        owners.add(owner1);
-
-        final Owner owner2 = new Owner();
-        owner2.setId(2L);
-        owners.add(owner2);
-
-        when(this.ownerService.findAll()).thenReturn(owners);
-
-        final ArgumentCaptor<Set<Owner>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-
-        // when
-        final String pageName = this.ownerController.listOwners(this.model);
-
-        // then
-        assertEquals("owners/index", pageName);
-        verify(this.ownerService, times(1)).findAll();
-        verify(this.model, times(1)).addAttribute(eq("owners"), argumentCaptor.capture());
-
-        final Set<Owner> ownersSetInController = argumentCaptor.getValue();
-        assertEquals(2L, ownersSetInController.size());
-    }
-
-    @Test
     void findOwners() {
     }
 }
