@@ -8,13 +8,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,12 +49,14 @@ class OwnerControllerTestv2 {
     @Test
     void listOwners() throws Exception {
         // given
-        when(this.ownerService.findAll()).thenReturn(owners);
+        List<Owner> ownerList = List.of(Owner.builder().id(1L).build());
+        Page<Owner> owners = new PageImpl<>(ownerList);
+
+        when(this.ownerService.findByLastNameLike(anyString(), any())).thenReturn(owners);
 
         mockMvc.perform(get("/owners"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("owners/index"))
-                .andExpect(model().attribute("owners", hasSize(2)));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/1"));
 
     }
 
@@ -58,7 +65,7 @@ class OwnerControllerTestv2 {
 
         mockMvc.perform(get("/owners/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("todo"));
+                .andExpect(view().name("owners/findOwners"));
 
         verifyNoInteractions(this.ownerService);
     }
