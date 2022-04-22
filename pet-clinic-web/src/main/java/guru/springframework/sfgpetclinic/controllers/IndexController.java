@@ -8,11 +8,7 @@ public class IndexController {
 
     @GetMapping({"", "/", "index"})
     public String index() {
-        return  "index";
+        return "index";
     }
 
-    @GetMapping({"/oups"})
-    public String oupsHandler() {
-        return "todo";
-    }
 }

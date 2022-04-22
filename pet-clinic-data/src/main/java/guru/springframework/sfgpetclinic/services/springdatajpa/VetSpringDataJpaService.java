@@ -4,7 +4,10 @@ import guru.springframework.sfgpetclinic.model.Vet;
 import guru.springframework.sfgpetclinic.repositories.VetRepository;
 import guru.springframework.sfgpetclinic.services.VetService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +30,7 @@ public class VetSpringDataJpaService implements VetService {
     @Override
     public Set<Vet> findAll() {
         Set<Vet> vets = new HashSet<>();
-        this.vetRepository.findAll().forEach(vets::add);
+        vets.addAll(this.vetRepository.findAll());
         return vets;
     }
 
@@ -44,6 +47,12 @@ public class VetSpringDataJpaService implements VetService {
     @Override
     public void deleteById(Long id) {
         this.vetRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Page<Vet> findAll(Pageable pageable) {
+        return this.vetRepository.findAll(pageable);
     }
 
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Vets</title>
+</head>
+<body>
+<h2>Veterinarians</h2>
+
+<table class="table table-striped" id="vets">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Specialties</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vet : ${listVets}">
+        <td th:text="${vet.firstName + '  ' + vet.lastName}"></td>
+        <td>
+            <span th:text="${#strings.listJoin(vet?.specialties, ', ')}"></span>
+            <span th:if="${vet?.specialties?.size() == 0}">None</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${totalPages > 1}">
+    <span>Pages:</span>
+
+    <span>[</span>
+
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+              <a th:href="@{'/vets?page=' + ${i}}" th:if="${currentPage != i}">[[${i}]]</a>
+              <span th:unless="${currentPage != i}">[[${i}]]</span>
+            </span>
+
+    <span>]</span>
+
+    &nbsp;
+
+    <span>
+              <a class="fa fa-fast-backward" th:href="@{'/vets?page=1'}" th:if="${currentPage > 1}" title="First"></a>
+            </span>
+    <span class="fa fa-fast-backward" th:unless="${currentPage > 1}" title="First"></span>
+
+    &nbsp;
+
+    <span>
+              <a class="fa fa-step-backward" th:href="@{'/vets?page=' + ${currentPage - 1}}" th:if="${currentPage > 1}"
+                 title="Previous"></a>
+            </span>
+    <span class="fa fa-step-backward" th:unless="${currentPage > 1}" title="Previous"></span>
+
+    &nbsp;
+
+    <span>
+              <a class="fa fa-step-forward" th:href="@{'/vets?page=' + ${currentPage + 1}}"
+                 th:if="${currentPage < totalPages}" title="Next"></a>
+            </span>
+    <span class="fa fa-step-forward" th:unless="${currentPage < totalPages}" title="Next"></span>
+
+    &nbsp;
+
+    <span>
+              <a class="fa fa-fast-forward" th:href="@{'/vets?page=' + ${totalPages}}"
+                 th:if="${currentPage < totalPages}" title="Last"></a>
+            </span>
+    <span class="fa fa-fast-forward" th:unless="${currentPage < totalPages}" title="Last"></span>
+</div>
+
+</body>
+
+</html>

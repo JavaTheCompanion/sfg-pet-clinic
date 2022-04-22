@@ -5,6 +5,8 @@ import guru.springframework.sfgpetclinic.model.Vet;
 import guru.springframework.sfgpetclinic.services.SpecialityService;
 import guru.springframework.sfgpetclinic.services.VetService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -42,8 +44,8 @@ public class VetServiceMapImpl extends AbstractMapService<Vet, Long> implements 
     @Override
     public Vet save(Vet object) {
         if (object != null) {
-            if (object.getSpecialities() != null) {
-                object.getSpecialities().forEach(speciality -> {
+            if (object.getSpecialties() != null) {
+                object.getSpecialties().forEach(speciality -> {
 
                     if (speciality.getId() == null) {
                         final Speciality savedSpeciality = this.specialityService.save(speciality);
@@ -55,5 +57,10 @@ public class VetServiceMapImpl extends AbstractMapService<Vet, Long> implements 
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Page<Vet> findAll(Pageable pageable) {
+        return null;
     }
 }

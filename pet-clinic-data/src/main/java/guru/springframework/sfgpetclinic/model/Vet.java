@@ -16,8 +16,9 @@ import java.util.Set;
 public class Vet extends Person {
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "vets_specialities", joinColumns = @JoinColumn(name = "vet_id"),
-            inverseJoinColumns = @JoinColumn(name = "speciality_id"))
-    private Set<Speciality> specialities = new HashSet<>();
+    @JoinTable(name = "vets_specialties", joinColumns = @JoinColumn(name = "vet_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialty_id"))
+    @OrderBy("description ASC")
+    private Set<Speciality> specialties = new HashSet<>();
 
 }

@@ -3,11 +3,10 @@ package guru.springframework.sfgpetclinic.bootstrap;
 import guru.springframework.sfgpetclinic.model.*;
 import guru.springframework.sfgpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Component
+//@Component
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
@@ -91,7 +90,7 @@ public class DataLoader implements CommandLineRunner {
 
         final Visit catVisit = Visit.builder()
                 .pet(fionasCat)
-                .date(LocalDate.now())
+                .visitDate(LocalDate.now())
                 .description("Sneezy Kitty").build();
 
         this.visitService.save(catVisit);
@@ -101,14 +100,14 @@ public class DataLoader implements CommandLineRunner {
         final Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
-        vet1.getSpecialities().add(savedRadiology);
+        vet1.getSpecialties().add(savedRadiology);
 
         this.vetService.save(vet1);
 
         final Vet vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
-        vet2.getSpecialities().add(savedSurgery);
+        vet2.getSpecialties().add(savedSurgery);
 
         vetService.save(vet2);
 

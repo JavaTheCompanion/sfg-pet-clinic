@@ -23,7 +23,8 @@ public class Owner extends Person {
     @Column(name = "telephone")
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "owner")
+    @OrderBy("name ASC")
     private Set<Pet> pets = new HashSet<>();
 
     @Builder
@@ -33,6 +34,26 @@ public class Owner extends Person {
         this.address = address;
         this.city = city;
         this.telephone = telephone;
-        //this.pets = pets;
+
+        if (pets != null && pets.size() > 0) {
+            this.pets = pets;
+        }
     }
+
+    public Pet getPet(String name) {
+        return this.getPet(name, false);
+    }
+
+    public Pet getPet(String name, boolean ignoreNew) {
+        for (final Pet pet : this.pets) {
+            if (!ignoreNew || !pet.isNew()) {
+                if (pet.getName().equalsIgnoreCase(name)) {
+                    return pet;
+                }
+            }
+        }
+
+        return null;
+    }
+
 }
